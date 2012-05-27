@@ -1,5 +1,5 @@
 {
-    "hash": "af5e67a360a3fada51bcbe8e6834cb26",
+    "hash": "b6a0036f73f5c99fcf2f8b28f996b96b",
     "packages": [
         {
             "package": "symfony/class-loader",
@@ -10,6 +10,18 @@
             "package": "symfony/class-loader",
             "version": "dev-master",
             "source-reference": "c57e62c886899f8d88264efad23c857eb198dc09",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/event-dispatcher",
+            "version": "dev-master",
+            "source-reference": "eb82542e8ec9506096caf7c528564c740a214f56"
+        },
+        {
+            "package": "symfony/event-dispatcher",
+            "version": "dev-master",
+            "source-reference": "eb82542e8ec9506096caf7c528564c740a214f56",
             "alias-pretty-version": "2.1.x-dev",
             "alias-version": "2.1.9999999.9999999-dev"
         },
@@ -26,9 +38,14 @@
             "source-reference": "5b1581418381f46679604fd19efc8b518f2390ae"
         },
         {
-            "package": "symfony/routing",
+            "package": "symfony/http-kernel",
             "version": "dev-master",
-            "source-reference": "aec133671d79d530d09aa0b5ca4cea9e4ee4b274",
+            "source-reference": "8160e6e1722cd0073152d01dc1464e2e23369484"
+        },
+        {
+            "package": "symfony/http-kernel",
+            "version": "dev-master",
+            "source-reference": "8160e6e1722cd0073152d01dc1464e2e23369484",
             "alias-pretty-version": "2.1.x-dev",
             "alias-version": "2.1.9999999.9999999-dev"
         },
@@ -36,6 +53,13 @@
             "package": "symfony/routing",
             "version": "dev-master",
             "source-reference": "aec133671d79d530d09aa0b5ca4cea9e4ee4b274"
+        },
+        {
+            "package": "symfony/routing",
+            "version": "dev-master",
+            "source-reference": "aec133671d79d530d09aa0b5ca4cea9e4ee4b274",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
         }
     ],
     "packages-dev": null,

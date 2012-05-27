@@ -6,10 +6,12 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Symfony\\Component\\Routing' => $vendorDir . '/symfony/routing/',
-    'Symfony\\Component\\HttpKernel' => $vendorDir . '/symfony/http-kernel/',
-    'Symfony\\Component\\HttpFoundation' => $vendorDir . '/symfony/http-foundation/',
-    'Symfony\\Component\\EventDispatcher' => $vendorDir . '/symfony/event-dispatcher/',
-    'Symfony\\Component\\ClassLoader' => $vendorDir . '/symfony/class-loader/',
-    'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs',
+    'Symfony\\Component\\Routing' => $baseDir . '/vendor/symfony/routing/',
+    'Symfony\\Component\\HttpKernel' => $baseDir . '/vendor/symfony/http-kernel/',
+    'Symfony\\Component\\HttpFoundation' => $baseDir . '/vendor/symfony/http-foundation/',
+    'Symfony\\Component\\EventDispatcher' => $baseDir . '/vendor/symfony/event-dispatcher/',
+    'Symfony\\Component\\ClassLoader' => $baseDir . '/vendor/symfony/class-loader/',
+    'Simplex' => $baseDir . '/src/',
+    'SessionHandlerInterface' => $baseDir . '/vendor/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs',
+    'Calendar' => $baseDir . '/src/',
 );
