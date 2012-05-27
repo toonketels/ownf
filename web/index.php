@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 // Only "use" Routing so we can grab everythign inside it
 use Symfony\Component\Routing;
+// Need the controller resolver
+use Symfony\Component\HttpKernel;
 
 /**
  * This is the default contoller. It extracts the
@@ -32,16 +34,20 @@ $routes = include __DIR__.'/../src/app.php';
 $context = new Routing\RequestContext();
 $context->fromRequest($request);
 $matcher = new Routing\Matcher\UrlMatcher($routes, $context);
+$resolver = new HttpKernel\Controller\ControllerResolver();
 
 // Since requesting a url which is not in the routeCollection
 // will throw an error: Catch that exeption and respond with 404.
 try {
   $request->attributes->add($matcher->match($request->getPathInfo()));
-  // To get the response content: ask the route to execute it's _controller
-  // callback function. Each route should hafe this _controller key.
-  // A controller can be a custom callback function or the default
-  // render_template above.
-  $response = call_user_func($request->attributes->get('_controller'), $request);
+
+  // In stead of the controller being a callback, we use objects now.
+  // To not instanciate all controller objects we use the controllerResolver
+  // to give us the appropriate controller depending on the request.
+  $controller = $resolver->getController($request);
+  $arguments = $resolver->getArguments($request, $controller);
+
+  $response = call_user_func_array($controller, $arguments);
 } catch (Routing\Exception\ResourceNotFoundException $e) {
   $response = new Response('Not Found', 404);
 } catch (Exception $e) {
