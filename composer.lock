@@ -1,6 +1,11 @@
 {
-    "hash": "accc08813d2efbadc0d877bdbc6c6124",
+    "hash": "3691e8f8094f047e98bf444bfb2c3198",
     "packages": [
+        {
+            "package": "symfony/class-loader",
+            "version": "dev-master",
+            "source-reference": "c57e62c886899f8d88264efad23c857eb198dc09"
+        },
         {
             "package": "symfony/class-loader",
             "version": "dev-master",
@@ -9,9 +14,16 @@
             "alias-version": "2.1.9999999.9999999-dev"
         },
         {
-            "package": "symfony/class-loader",
+            "package": "symfony/http-foundation",
             "version": "dev-master",
-            "source-reference": "c57e62c886899f8d88264efad23c857eb198dc09"
+            "source-reference": "5b1581418381f46679604fd19efc8b518f2390ae",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/http-foundation",
+            "version": "dev-master",
+            "source-reference": "5b1581418381f46679604fd19efc8b518f2390ae"
         }
     ],
     "packages-dev": null,
