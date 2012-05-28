@@ -11,9 +11,9 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 
 // Create eventdispatcher
 $dispatcher = new EventDispatcher();
-// Add eventlistener
-$dispatcher->addListener('response', 'Simplex\GoogleListener::onResponse');
-$dispatcher->addListener('response', 'Simplex\ContentLengthListener::onResponse', -255);
+// Add eventsubscribers
+$dispatcher->addSubscriber(new Simplex\GoogleListener());
+$dispatcher->addSubscriber(new Simplex\ContentLengthListener());
 
 $request = Request::createFromGlobals();
 $routes = include __DIR__.'/../src/app.php';

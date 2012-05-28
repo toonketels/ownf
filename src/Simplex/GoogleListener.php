@@ -2,7 +2,9 @@
 
 namespace Simplex;
 
-class GoogleListener
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
+class GoogleListener implements EventSubscriberInterface
 {
   public function onResponse(ResponseEvent $event)
   {
@@ -16,5 +18,16 @@ class GoogleListener
       }
 
       $response->setContent($response->getContent().'GA CODE');
+  }
+
+  /**
+   * GetSubscribedEvents parts of EventSubscriberInterface.
+   *
+   * We return the events we are interested in and the methods that
+   * should be invoked when event in dispatched.
+   */
+  public static function getSubscribedEvents()
+  {
+    return array('response' => 'onResponse');
   }
 }
