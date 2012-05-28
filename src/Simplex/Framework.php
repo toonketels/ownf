@@ -11,14 +11,18 @@ use Symfony\Component\HttpKernel\Controller\ControllerResolver;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 
+use Symfony\Component\EventDispatcher\EventDispatcher;
+
 class Framework
 {
   protected $matcher;
   protected $resolver;
+  protected $dispatcher;
 
   // Type hint to interfaces for easier testing => they should implement some methods.
-  public function __construct(UrlMatcherInterface $matcher, ControllerResolverInterface $resolver)
+  public function __construct(EventDispatcher $dispatcher, UrlMatcherInterface $matcher, ControllerResolverInterface $resolver)
   {
+    $this->dispatcher = $dispatcher;
     $this->matcher = $matcher;
     $this->resolver = $resolver;
   }
@@ -31,11 +35,17 @@ class Framework
       $controller = $this->resolver->getController($request);
       $arguments = $this->resolver->getArguments($request, $controller);
 
-      return call_user_func_array($controller, $arguments);
+      $response = call_user_func_array($controller, $arguments);
     } catch (ResourceNotFoundException $e) {
-      return new Response('Page not found.', 404);
+      $response = new Response('Page not found.', 404);
     } catch (\Exception $e) {
-      return new Response('Internal error.', 500);
+      $response =  new Response('Internal error.', 500);
     }
+
+    // dispatch a response event, pass response and requests objects
+    // for others to modify
+    $this->dispatcher->dispatch('response', new ResponseEvent($response, $request));
+
+    return $response;
   }
 }
