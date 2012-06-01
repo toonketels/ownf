@@ -13,7 +13,9 @@ use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
-class Framework
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+
+class Framework implements HttpKernelInterface
 {
   protected $matcher;
   protected $resolver;
@@ -27,7 +29,8 @@ class Framework
     $this->resolver = $resolver;
   }
 
-  public function handle(Request $request)
+  // HttpKernelInterface...
+  public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = true)
   {
     try {
       $request->attributes->add($this->matcher->match($request->getPathInfo()));
