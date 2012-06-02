@@ -2,23 +2,25 @@
 
 namespace Simplex;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Matcher\UrlMatcher;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Symfony\Component\HttpKernel\Controller\ControllerResolver;
-
-use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
-use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
-
+use Symfony\Component\Routing;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-
-use Symfony\Component\HttpKernel\HttpKernelInterface;
-
-use Symfony\Component\HttpKernel\HttpKernel;
-
+use Symfony\Component\HttpKernel;
 
 // Subclass HttpKernel
-class Framework extends HttpKernel
+class Framework extends HttpKernel\HttpKernel
 {
+  public function __construct($routes)
+  {
+    $context = new Routing\RequestContext();
+    $matcher = new Routing\Matcher\UrlMatcher($routes, $context);
+    $resolver = new HttpKernel\Controller\ControllerResolver();
+
+    $dispatcher = new EventDispatcher();
+    $dispatcher->addSubscriber(new HttpKernel\EventListener\RouterListener($matcher));
+    $dispatcher->addSubscriber(new HttpKernel\EventListener\ResponseListener('UTF-8'));
+    $dispatcher->addSubscriber(new StringResponseListener());
+
+    parent::__construct($dispatcher, $resolver);
+  }
+
 }
