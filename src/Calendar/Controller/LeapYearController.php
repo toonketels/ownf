@@ -3,26 +3,23 @@
 namespace Calendar\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Calendar\Model\LeapYear;
 
+// Allow controller to just return strings instead of a response object.
+// We add a listener who will grab the string and make a
+// response object out of it. It wil listen for the kernel.view event
+// which will be fired just after the controller is done returning the string.
 class LeapYearController
 {
   public function indexAction(Request $request, $year)
   {
     $leapyear = new LeapYear();
 
-    $number = rand(0,10000000);
-
     if($leapyear->isLeapYear($year)) {
-      $response = new Response("Yes sir, it is a leapyear in $number.");
-    } else {
-      $response = new Response("No, this is not a leapyear in $number!");
+      return "Yes sir, it is a leapyear.";
     }
-    // Add cache header: Set Time to live to 10 seconds
-    $response->setTtl(10);
 
-    return $response;;
+    return"No, this is not a leapyear!";
   }
 
 }

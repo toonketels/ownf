@@ -18,12 +18,16 @@ $resolver = new HttpKernel\Controller\ControllerResolver();
 $dispatcher = new EventDispatcher();
 $dispatcher->addSubscriber(new HttpKernel\EventListener\RouterListener($matcher));
 
-$errorHandler = function (HttpKernel\Exception\FlattenException $exception) {
-  $msg = 'Something went wrong!('.$exception->getMessage().')';
+// Using ErrorController class instead of Closure...
+$listener = new HttpKernel\EventListener\ExceptionListener('Calendar\\Controller\\ErrorController::exceptionAction');
+$dispatcher->addSubscriber($listener);
 
-  return new Response($msg, $exception->getStatusCode());
-};
-$dispatcher->addSubscriber(new HttpKernel\EventListener\ExceptionListener($errorHandler));
+// Will add charset=UTF-8 to http header
+$dispatcher->addSubscriber(new HttpKernel\EventListener\ResponseListener('UTF-8'));
+
+$dispatcher->addSubscriber(new HttpKernel\EventListener\StreamedResponseListener());
+
+$dispatcher->addSubscriber(new Simplex\StringResponseListener());
 
 $framework = new Simplex\Framework($dispatcher, $resolver);
 
